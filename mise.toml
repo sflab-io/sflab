@@ -1,0 +1,8 @@
+[tools]
+age = "latest"
+sops = "latest"
+
+[env]
+_.file = [
+  { path = ".creds.env.yaml", redact = true }
+]

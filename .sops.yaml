@@ -1,0 +1,7 @@
+creation_rules:
+  - path_regex: "^.creds.env.yaml$"
+    age: age1595c6n7r3zu0aql8qeehlulds6g4cvavmphsyauk9uddks5hpuzqcg7c4u
+    format: yaml
+stores:
+  yaml:
+    indent: 2
