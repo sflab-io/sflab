@@ -1,0 +1,152 @@
+#!/usr/bin/env bash
+# Script to check the status of various homelab services and display them in a formatted way
+
+# Function to display network interface information
+show_network_interfaces() {
+    echo "=========================================="
+    echo "Network Interfaces"
+    echo "=========================================="
+    echo ""
+
+    if command -v ifconfig &> /dev/null; then
+      # Get list of interfaces (macOS compatible)
+      interfaces=$(ifconfig -a | awk -F: '/^[a-z]/ {print $1}' | sort -u)
+
+      for interface in $interfaces; do
+          # Get IPv4 address first
+          ipv4=$(ifconfig "$interface" | awk '/inet / {print $2}')
+
+          # Skip interface if no IPv4 address
+          [[ -z "$ipv4" ]] && continue
+
+          echo "Interface: $interface"
+
+          # Get status (UP/DOWN)
+          if ifconfig "$interface" | grep -q "status: active\|UP"; then
+              echo "  Status: UP"
+          else
+              echo "  Status: DOWN"
+          fi
+
+          # Display IPv4 address
+          netmask=$(ifconfig "$interface" | awk '/inet / {print $4}')
+          echo "  IPv4: $ipv4${netmask:+ (netmask: $netmask)}"
+
+          # Get IPv6 address (excluding link-local)
+          ipv6=$(ifconfig "$interface" | awk '/inet6 / {print $2}' | grep -v '^fe80')
+          if [[ -n "$ipv6" ]]; then
+              while IFS= read -r addr; do
+                  echo "  IPv6: $addr"
+              done <<< "$ipv6"
+          fi
+
+          # Get MAC address
+          mac=$(ifconfig "$interface" | awk '/ether / {print $2}')
+          if [[ -n "$mac" ]]; then
+              echo "  MAC: $mac"
+          fi
+        done
+    else
+        echo "Error: 'ifconfig' command not found!"
+        return 1
+    fi
+}
+
+# Function to ping a device and report its status
+ping_device() {
+    local name="$1"
+    local ip="$2"
+
+    # Validate parameters
+    if [[ -z "$name" || -z "$ip" ]]; then
+        echo "Error: ping_device requires name and ip parameters"
+        return 1
+    fi
+
+    # Ping the device (2 attempts, 1 second timeout per ping)
+    # -c 2: send 2 packets
+    # -W 1: timeout 1 second (macOS compatible)
+    # -q: quiet output
+    if ping -c 1 -W 1 "$ip" &> /dev/null; then
+        echo "✓ $name ($ip) - REACHABLE"
+    else
+        echo "✗ $name ($ip) - UNREACHABLE"
+    fi
+}
+
+# Function to check homelab devices
+check_devices() {
+    echo "=========================================="
+    echo "Device Status"
+    echo "=========================================="
+    echo ""
+
+    ping_device "Opnsense Firewall" "192.168.1.1"
+    ping_device "Netgear Switch" "192.168.1.10"
+    ping_device "Netgear Access Point" "192.168.1.11"
+    ping_device "Proxmox" "192.168.1.12"
+    ping_device "Raspberry PI" "192.168.1.13"
+    ping_device "Bind9 Secondary LXC" "192.168.1.14"
+
+    echo ""
+    echo "=========================================="
+}
+
+# Function to test DNS resolution
+test_dns() {
+    local fqdn="$1"
+    local dns_server="$2"
+
+    # Validate parameters
+    if [[ -z "$fqdn" || -z "$dns_server" ]]; then
+        echo "Error: test_dns requires fqdn and dns_server parameters"
+        return 1
+    fi
+
+    # Try to resolve the FQDN using the specified DNS server
+    # Use dig if available, fallback to nslookup
+    if command -v dig &> /dev/null; then
+        result=$(dig +short +time=2 +tries=1 @"$dns_server" "$fqdn" 2>/dev/null | head -n 1)
+    elif command -v nslookup &> /dev/null; then
+        result=$(nslookup -timeout=2 "$fqdn" "$dns_server" 2>/dev/null | awk '/^Address: / { print $2 }' | tail -n 1)
+    else
+        echo "✗ $fqdn (@$dns_server) - ERROR: No DNS tools available (dig/nslookup)"
+        return 1
+    fi
+
+    # Check if resolution was successful
+    if [[ -n "$result" && "$result" =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+        echo "✓ $fqdn (@$dns_server) - RESOLVED to $result"
+    else
+        echo "✗ $fqdn (@$dns_server) - FAILED"
+    fi
+}
+
+# Function to check DNS resolution
+check_dns() {
+    echo "=========================================="
+    echo "DNS Resolution Status"
+    echo "=========================================="
+    echo ""
+
+    # Add your DNS tests here
+    test_dns "pi1.home.sflab.io" "192.168.1.13"
+    test_dns "proxmox.home.sflab.io" "192.168.1.13"
+
+    echo ""
+    echo "=========================================="
+}
+
+# Main execution
+main() {
+    show_network_interfaces
+    echo ""
+    check_devices
+    echo ""
+    check_dns
+}
+
+# Run main function if script is executed directly
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+    main "$@"
+fi

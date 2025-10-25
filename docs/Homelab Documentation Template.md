@@ -55,15 +55,12 @@ Internet
 
 ### 1.3 Technologie-Stack
 
-| Komponente | Technologie |
-|------------|-------------|
-| Virtualisierung | [z.B. Proxmox VE] |
-| Firewall | [z.B. OPNsense] |
-| DNS | [z.B. Pi-hole, AdguardHome, BIND9, Unbound] |
-<!--| Reverse Proxy | [z.B. Nginx, Traefik] |-->
-<!--| Container | [z.B. Docker, LXC] |-->
-<!--| Backup | [z.B. Proxmox Backup Server] |-->
-<!--| Monitoring | [z.B. Prometheus, Grafana] |-->
+| Komponente      | Technologie  |
+|-----------------|--------------|
+| Virtualisierung | Proxmox VE   |
+| Firewall        | OPNsense     |
+| DNS Primary     | Raspberry Pi |
+| DNS Secondary   | Proxmox LXC  |
 
 ---
 
