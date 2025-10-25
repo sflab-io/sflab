@@ -7,7 +7,14 @@ uv = "latest"
 python.uv_venv_auto = true
 
 [hooks]
-enter = "uv pip install -q -r requirements.txt"
+enter = """
+# A problem is that this hook is executed on every `cd` into the sflab directory or its subdirectories (e.g. below ./src).
+# This will fail if a subdirectorie does not have a requirements.txt file.
+# To execute the hook only on first entry into the sflab root directory, the following logic can be used:
+if [ -z "$MISE_ORIGINAL_CWD" ] || [[ "$MISE_ORIGINAL_CWD" != "$PWD"* ]]; then
+  uv pip install -q -r requirements.txt
+fi
+"""
 
 [tasks.install-deps]
 description = "Install Python dependencies"
