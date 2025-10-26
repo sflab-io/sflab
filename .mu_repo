@@ -1,0 +1,6 @@
+repo=.
+repo=src/homelab-cli
+repo=src/homelab-daggerverse
+repo=src/homelab-dns-ansible-playbook
+repo=src/homelab-packer-templates
+serial=True
