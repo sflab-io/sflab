@@ -6,8 +6,31 @@ uv = "latest"
 [settings]
 python.uv_venv_auto = true
 
+[env]
+PROJECT_ID = "sflab"
+PROJECT_HOME = "{{ config_root }}"
+PROJECT_SRC = "{{ config_root }}/src"
+PROJECT_CONF = "{{ config_root }}/conf"
+
+_.file = [
+  { path = "{{env.HOME}}/.env", optional = true },
+  { path = ".env", optional = true },
+  { path = ".creds.env.yaml", redact = true }
+]
+_.path = [
+  "./scripts"
+]
+_.python.venv = { path = ".venv", create = true }
+
 [hooks]
 enter = """
+mise i -q
+
+echo "-----------------------------------"
+figlet "SFLAB"
+echo "Welcome to the SFLAB DEV Workspace!"
+echo "-----------------------------------"
+
 # A problem is that this hook is executed on every `cd` into the sflab directory or its subdirectories (e.g. below ./src).
 # This will fail if a subdirectorie does not have a requirements.txt file.
 # To execute the hook only on first entry into the sflab root directory, the following logic can be used:
@@ -19,14 +42,3 @@ fi
 [tasks.install-deps]
 description = "Install Python dependencies"
 run = "uv pip install -r requirements.txt"
-
-[env]
-_.file = [
-  { path = "{{env.HOME}}/.env", optional = true },
-  { path = ".env", optional = true },
-  { path = ".creds.env.yaml", redact = true }
-]
-_.path = [
-  "./scripts"
-]
-_.python.venv = { path = ".venv", create = true }
