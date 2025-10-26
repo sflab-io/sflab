@@ -28,8 +28,8 @@ enter = """
 mise i -q
 
 echo "-----------------------------------"
-figlet "SFLAB"
-echo "Welcome to the SFLAB DEV Workspace!"
+figlet "$PROJECT_ID"
+echo "Welcome to the $PROJECT_ID DEV Workspace!"
 echo "-----------------------------------"
 
 # A problem is that this hook is executed on every `cd` into the sflab directory or its subdirectories (e.g. below ./src).
