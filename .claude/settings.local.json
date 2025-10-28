@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//Users/seba/.claude/commands/**)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
