@@ -1,4 +1,6 @@
 repo=.
+repo=src/ansible-role-adguardhome
+repo=src/ansible-role-bind9
 repo=src/homelab-cli
 repo=src/homelab-daggerverse
 repo=src/homelab-dns-ansible-playbook

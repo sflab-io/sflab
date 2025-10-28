@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 # Script to check the status of various homelab services and display them in a formatted way
 
+source ~/git/bash-commons/modules/bash-commons/src/log.sh
+
 # Function to display network interface information
 show_network_interfaces() {
     echo "=========================================="
@@ -68,9 +70,9 @@ ping_device() {
     # -W 1: timeout 1 second (macOS compatible)
     # -q: quiet output
     if ping -c 1 -W 1 "$ip" &> /dev/null; then
-        echo "✓ $name ($ip) - REACHABLE"
+        log_green "✓ $name ($ip) - REACHABLE"
     else
-        echo "✗ $name ($ip) - UNREACHABLE"
+        log_red "✗ $name ($ip) - UNREACHABLE"
     fi
 }
 
@@ -116,9 +118,9 @@ test_dns() {
 
     # Check if resolution was successful
     if [[ -n "$result" && "$result" =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
-        echo "✓ $fqdn (@$dns_server) - RESOLVED to $result"
+        log_green "✓ $fqdn (@$dns_server) - RESOLVED to $result"
     else
-        echo "✗ $fqdn (@$dns_server) - FAILED"
+        log_red "✗ $fqdn (@$dns_server) - FAILED"
     fi
 }
 
@@ -130,8 +132,10 @@ check_dns() {
     echo ""
 
     # Add your DNS tests here
-    test_dns "pi1.home.sflab.io" "192.168.1.13"
+    test_dns "ns1.home.sflab.io" "192.168.1.13"
+    test_dns "ns2.home.sflab.io" "192.168.1.13"
     test_dns "proxmox.home.sflab.io" "192.168.1.13"
+    test_dns "adguard.home.sflab.io" "192.168.1.13"
 
     echo ""
     echo "=========================================="
