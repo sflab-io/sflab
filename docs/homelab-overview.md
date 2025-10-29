@@ -38,17 +38,34 @@ Geraet: Protectli FW4C-0-8-120
 Geraet: Netgear WAX210
 
 Ipv4: 192.168.1.11
+FQDN: switch.home.sflab.io
 
 WLAN SSID: LAN Solo (VLAN 10)<br>
 WLAN SSID: LAN Solo Guest (VLAN 30)
 
-### **BIND 9 DNS**
+### **Primary DNS**
 
-Wird als Primary DNS Server fuer das Homelab verwendet.
+Primary DNS Server fuer home.sflab.io mit AdguardHome, Bind9 Primary und Unbound.
 
-Geraet: Raspberry Pi 5
+Geraet: Raspberry Pi 5<br>
+Ipv4: 192.168.1.13<br>
+FQDN: ns1.home.sflab.io
 
-Ipv4: 192.168.1.12
+### **Secondary DNS**
+
+Secondary DNS Server fuer home.sflab.io mit Bind9 Secondary.
+
+Geraet: Proxmox LXC Container (bind9-secondary / 100)<br>
+Ipv4: 192.168.1.14<br>
+FQDN: ns2.home.sflab.io
+
+### **MinIO**
+
+Wird als S3 Object Storage fuer das Homelab verwendet.
+
+Geraet: Proxmox LXC Container (minio / 101)<br>
+Ipv4: 192.168.1.20<br>
+FQDN: minio.home.sflab.io
 
 ### **Proxmox VE**
 
@@ -81,7 +98,7 @@ Netz Interfaces:
 
 Eingebunden per WLAN im VLAN 10 (LAN Solo), DHCP
 
-Geraet: iPhone 13
+Geraet: iPhone 13<br>
 Ipv4: 192.168.10.102
 
 ### **IoT Bridge**
