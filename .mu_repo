@@ -5,4 +5,6 @@ repo=src/homelab-cli
 repo=src/homelab-daggerverse
 repo=src/homelab-dns-ansible-playbook
 repo=src/homelab-packer-templates
+repo=src/terragrunt/terragrunt-infrastructure-catalog-homelab
+repo=src/terragrunt/terragrunt-infrastructure-live-stacks-homelab
 serial=True
