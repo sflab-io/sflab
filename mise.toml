@@ -3,6 +3,7 @@ age = "latest"
 sops = "latest"
 uv = "latest"
 pre-commit = "latest"
+gitleaks = "latest"
 
 [settings]
 python.uv_venv_auto = true
