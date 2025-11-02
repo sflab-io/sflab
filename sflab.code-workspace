@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../../dotfiles"
+		},
+		{
+			"path": "../../.config/mise"
+		}
+	],
+	"settings": {}
+}

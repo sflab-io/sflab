@@ -1,2 +1,0 @@
-ansible-dev-tools~=25.9
-mu-repo~=1.9.0

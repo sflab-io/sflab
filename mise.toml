@@ -1,28 +1,22 @@
 [tools]
 age = "latest"
 sops = "latest"
-uv = "latest"
 pre-commit = "latest"
 gitleaks = "latest"
-
-[settings]
-python.uv_venv_auto = true
 
 [env]
 PROJECT_ID = "sflab"
 PROJECT_HOME = "{{ config_root }}"
 PROJECT_SRC = "{{ config_root }}/src"
 PROJECT_CONF = "{{ config_root }}/conf"
+PROJECT_DOCS = "{{ config_root }}/docs"
 
 _.file = [
   { path = "{{env.HOME}}/.env", optional = true },
   { path = ".env", optional = true },
-  { path = ".creds.env.yaml", redact = true }
+  { path = ".creds.env.yaml", redact = true },
 ]
-_.path = [
-  "./scripts"
-]
-_.python.venv = { path = ".venv", create = true }
+_.path = ["./scripts"]
 
 [hooks]
 enter = """
@@ -34,16 +28,12 @@ echo "Welcome to the $PROJECT_ID DEV Workspace!"
 echo "-----------------------------------"
 
 # A problem is that this hook is executed on every `cd` into the sflab directory or its subdirectories (e.g. below ./src).
-# This will fail if a subdirectorie does not have a requirements.txt file.
 # To execute the hook only on first entry into the sflab root directory, the following logic can be used:
 if [ -z "$MISE_ORIGINAL_CWD" ] || [[ "$MISE_ORIGINAL_CWD" != "$PWD"* ]]; then
-  uv pip install -q -r requirements.txt
+  pre-commit install --hook-type pre-commit
 fi
 
-#
-pre-commit install
+# Link vscode notes from home managed by dotfiles to project docs
+mkdir -p $PROJECT_DOCS/notes/
+ln -s ~/notes/vscode/*.md $PROJECT_DOCS/notes/
 """
-
-[tasks.install-deps]
-description = "Install Python dependencies"
-run = "uv pip install -r requirements.txt"
