@@ -1,9 +1,10 @@
 repo=.
-repo=src/ansible-role-adguardhome
-repo=src/ansible-role-bind9
+repo=src/ansible/ansible-role-adguardhome
+repo=src/ansible/ansible-role-bind9
+repo=src/ansible/homelab-dns-ansible-playbook
+repo=src/ansible/homelab-pki-ansible-playbook
 repo=src/homelab-cli
 repo=src/homelab-daggerverse
-repo=src/homelab-dns-ansible-playbook
 repo=src/homelab-packer-templates
 repo=src/terragrunt/terragrunt-infrastructure-catalog-homelab
 repo=src/terragrunt/terragrunt-infrastructure-live-stacks-homelab
