@@ -35,5 +35,5 @@ fi
 
 # Link vscode notes from home managed by dotfiles to project docs
 mkdir -p $PROJECT_DOCS/notes/
-ln -s ~/notes/vscode/*.md $PROJECT_DOCS/notes/
+ln -s ~/notes/vscode/ $PROJECT_DOCS/notes/
 """
