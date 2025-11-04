@@ -17,5 +17,7 @@
 			"path": "src/ansible/ansible-role-bind9"
 		}
 	],
-	"settings": {}
+	"settings": {
+		"ansible.python.interpreterPath": "/Users/seba/projects/sflab/src/ansible/homelab-pki-ansible-playbook/.venv/bin/python"
+	}
 }

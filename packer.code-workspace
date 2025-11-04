@@ -1,0 +1,8 @@
+{
+	"folders": [
+		{
+			"name": "homelab-packer-templates",
+			"path": "src/homelab-packer-templates"
+		}
+	]
+}
