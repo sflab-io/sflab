@@ -3,3 +3,17 @@ docs/notes/vscode/
 tmp/
 src/
 .*.drawio.bkp
+# mani #
+# src/terragrunt/terragrunt-infrastructure-live-stacks-homelab
+# src/terragrunt/terragrunt-infrastructure-catalog-homelab
+# src/homelab-packer-templates
+# src/homelab-docker-compose/netbox-docker-compose
+# src/homelab-docker-compose/nautobot-docker-compose
+# src/homelab-daggerverse
+# src/homelab-cli
+# src/ansible/homelab-pki-ansible-playbook
+# src/ansible/homelab-dns-ansible-playbook
+# src/ansible/ansible-role-bind9
+# src/ansible/ansible-role-adguardhome
+# .
+# mani #

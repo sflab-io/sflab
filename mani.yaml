@@ -1,0 +1,121 @@
+projects:
+  sflab:
+    path: .
+    url: git@github.com:abes140377/sflab.git
+    desc: Homelab toplevel project
+
+  ansible-role-adguardhome:
+    path: src/ansible/ansible-role-adguardhome
+    url: git@github.com:abes140377/ansible-role-adguardhome.git
+    desc: Ansible role to install and configure AdGuard Home
+    tags: [ansible]
+
+  ansible-role-bind9:
+    path: src/ansible/ansible-role-bind9
+    url: git@github.com:abes140377/ansible-role-bind9.git
+    desc: Ansible role to install and configure BIND9 DNS server
+    tags: [ansible]
+
+  homelab-dns-ansible-playbook:
+    path: src/ansible/homelab-dns-ansible-playbook
+    url: git@github.com:abes140377/homelab-dns-ansible-playbook.git
+    desc: Ansible playbook for configuring DNS in the homelab
+    tags: [ansible]
+
+  homelab-pki-ansible-playbook:
+    path: src/ansible/homelab-pki-ansible-playbook
+    url: git@github.com:abes140377/homelab-pki-ansible-playbook.git
+    desc: Ansible playbook for configuring PKI in the homelab
+    tags: [ansible]
+
+  homelab-cli:
+    path: src/homelab-cli
+    url: git@github.com:abes140377/homelab-cli.git
+    desc: Command-line interface for managing the homelab infrastructure and projects
+    tags: [cli]
+
+  homelab-daggerverse:
+    path: src/homelab-daggerverse
+    url: git@github.com:abes140377/homelab-daggerverse.git
+    desc: Dagger pipelines for homelab projects
+    tags: [dagger]
+
+  nautobot-docker-compose:
+    path: src/homelab-docker-compose/nautobot-docker-compose
+    url: https://github.com/nautobot/nautobot-docker-compose.git
+    desc: Nautobot Docker Compose configuration
+    tags: [docker]
+
+  netbox-docker-compose:
+    path: src/homelab-docker-compose/netbox-docker-compose
+    url: https://github.com/netbox-community/netbox-docker.git
+    desc: NetBox Docker Compose configuration
+    tags: [docker]
+
+  homelab-packer-templates:
+    path: src/homelab-packer-templates
+    url: git@github.com:abes140377/homelab-packer-templates.git
+    desc: Packer templates for building homelab VM images
+    tags: [packer]
+
+  terragrunt-infrastructure-catalog-homelab:
+    path: src/terragrunt/terragrunt-infrastructure-catalog-homelab
+    url: git@github.com:abes140377/terragrunt-infrastructure-catalog-homelab.git
+    desc: Terragrunt infrastructure catalog for homelab
+    tags: [terragrunt]
+
+  terragrunt-infrastructure-live-stacks-homelab:
+    path: src/terragrunt/terragrunt-infrastructure-live-stacks-homelab
+    url: git@github.com:abes140377/terragrunt-infrastructure-live-stacks-homelab.git
+    desc: Terragrunt infrastructure live stacks for homelab
+    tags: [terragrunt]
+
+specs:
+  custom:
+    output: table
+    parallel: true
+    forks: 8
+
+targets:
+  all:
+    all: true
+
+themes:
+  custom:
+    table:
+      border:
+        around: true
+        header: true
+        columns: true
+        rows: true
+
+tasks:
+  git-status:
+    desc: Show working tree status
+    spec: custom
+    target: all
+    cmd: git status -s
+
+  git-last-commit-msg:
+    desc: Show last commit
+    cmd: git log -1 --pretty=%B
+
+  git-last-commit-date:
+    desc: Show last commit date
+    cmd: |
+      git log -1 --format="%cd (%cr)" -n 1 --date=format:"%d  %b %y" \
+      | sed 's/ //'
+
+  git-branch:
+    desc: Show current git branch
+    cmd: git rev-parse --abbrev-ref HEAD
+
+  git-overview:
+    desc: Show branch, local and remote diffs, last commit and date
+    spec: custom
+    target: all
+    theme: custom
+    commands:
+      - task: git-branch
+      - task: git-last-commit-msg
+      - task: git-last-commit-date
