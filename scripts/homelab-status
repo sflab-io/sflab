@@ -11,42 +11,42 @@ show_network_interfaces() {
     echo ""
 
     if command -v ifconfig &> /dev/null; then
-      # Get list of interfaces (macOS compatible)
-      interfaces=$(ifconfig -a | awk -F: '/^[a-z]/ {print $1}' | sort -u)
+        # Get list of interfaces (macOS compatible)
+        interfaces=$(ifconfig -a | awk -F: '/^[a-z]/ {print $1}' | sort -u)
 
-      for interface in $interfaces; do
-          # Get IPv4 address first
-          ipv4=$(ifconfig "$interface" | awk '/inet / {print $2}')
+        for interface in $interfaces; do
+            # Get IPv4 address first
+            ipv4=$(ifconfig "$interface" | awk '/inet / {print $2}')
 
-          # Skip interface if no IPv4 address
-          [[ -z "$ipv4" ]] && continue
+            # Skip interface if no IPv4 address
+            [[ -z "$ipv4" ]] && continue
 
-          echo "Interface: $interface"
+            echo "Interface: $interface"
 
-          # Get status (UP/DOWN)
-          if ifconfig "$interface" | grep -q "status: active\|UP"; then
-              echo "  Status: UP"
-          else
-              echo "  Status: DOWN"
-          fi
+            # Get status (UP/DOWN)
+            if ifconfig "$interface" | grep -q "status: active\|UP"; then
+                echo "  Status: UP"
+            else
+                echo "  Status: DOWN"
+            fi
 
-          # Display IPv4 address
-          netmask=$(ifconfig "$interface" | awk '/inet / {print $4}')
-          echo "  IPv4: $ipv4${netmask:+ (netmask: $netmask)}"
+            # Display IPv4 address
+            netmask=$(ifconfig "$interface" | awk '/inet / {print $4}')
+            echo "  IPv4: $ipv4${netmask:+ (netmask: $netmask)}"
 
-          # Get IPv6 address (excluding link-local)
-          ipv6=$(ifconfig "$interface" | awk '/inet6 / {print $2}' | grep -v '^fe80')
-          if [[ -n "$ipv6" ]]; then
-              while IFS= read -r addr; do
-                  echo "  IPv6: $addr"
-              done <<< "$ipv6"
-          fi
+            # Get IPv6 address (excluding link-local)
+            ipv6=$(ifconfig "$interface" | awk '/inet6 / {print $2}' | grep -v '^fe80')
+            if [[ -n "$ipv6" ]]; then
+                while IFS= read -r addr; do
+                    echo "  IPv6: $addr"
+                done <<< "$ipv6"
+            fi
 
-          # Get MAC address
-          mac=$(ifconfig "$interface" | awk '/ether / {print $2}')
-          if [[ -n "$mac" ]]; then
-              echo "  MAC: $mac"
-          fi
+            # Get MAC address
+            mac=$(ifconfig "$interface" | awk '/ether / {print $2}')
+            if [[ -n "$mac" ]]; then
+                echo "  MAC: $mac"
+            fi
         done
     else
         echo "Error: 'ifconfig' command not found!"
