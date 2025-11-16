@@ -1,12 +1,15 @@
 {
 	"folders": [
 		{
+			"name": "terragrunt-infrastructure-catalog-homelab",
 			"path": "src/terragrunt/terragrunt-infrastructure-catalog-homelab"
 		},
 		{
+			"name": "terragrunt-infrastructure-live-stacks-homelab",
 			"path": "src/terragrunt/terragrunt-infrastructure-live-stacks-homelab"
 		},
 		{
+			"name": "examples",
 			"path": "src/terragrunt/examples"
 		}
 	],

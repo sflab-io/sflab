@@ -87,6 +87,7 @@ check_devices() {
     ping_device "Netgear Switch" "192.168.1.10"
     ping_device "Netgear Access Point" "192.168.1.11"
     ping_device "Proxmox" "192.168.1.12"
+    ping_device "TrueNas" "192.168.30.108"
     ping_device "Raspberry PI" "192.168.1.13"
     ping_device "Bind9 Secondary LXC" "192.168.1.14"
 
@@ -136,6 +137,7 @@ check_dns() {
     test_dns "ns2.home.sflab.io" "192.168.1.13"
     test_dns "proxmox.home.sflab.io" "192.168.1.13"
     test_dns "adguard.home.sflab.io" "192.168.1.13"
+    test_dns "truenas.home.sflab.io" "192.168.30.108"
 
     echo ""
     echo "=========================================="

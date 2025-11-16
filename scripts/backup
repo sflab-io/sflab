@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# [ -f /Volumes/storage-share-smb/.liveness.txt ] || osascript -e 'mount volume "smb://sfreund@192.168.30.108/storage-share-smb"'
