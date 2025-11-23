@@ -1,12 +1,16 @@
 {
 	"folders": [
 		{
-			"name": "homelab-pki-ansible-playbook",
-			"path": "src/ansible/homelab-pki-ansible-playbook"
+			"name": "homelab-ansible-playbook",
+			"path": "src/ansible/homelab-ansible-playbook"
 		},
 		{
 			"name": "homelab-dns-ansible-playbook",
 			"path": "src/ansible/homelab-dns-ansible-playbook"
+		},
+		{
+			"name": "homelab-pki-ansible-playbook",
+			"path": "src/ansible/homelab-pki-ansible-playbook"
 		},
 		{
 			"name": "ansible-role-adguardhome",
@@ -18,6 +22,6 @@
 		}
 	],
 	"settings": {
-		"ansible.python.interpreterPath": "/Users/seba/projects/sflab/src/ansible/homelab-pki-ansible-playbook/.venv/bin/python"
+		"ansible.python.interpreterPath": "/Users/seba/projects/sflab/src/ansible/homelab-ansible-playbook/.venv/bin/python"
 	}
 }
