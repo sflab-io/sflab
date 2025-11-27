@@ -1,3 +1,6 @@
+[tools]
+gum = "latest"
+
 [env]
 PROJECT_ID = "sflab"
 PROJECT_HOME = "{{ config_root }}"

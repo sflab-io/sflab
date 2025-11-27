@@ -5,10 +5,7 @@ source ~/git/bash-commons/modules/bash-commons/src/log.sh
 
 # Function to display network interface information
 show_network_interfaces() {
-    echo "=========================================="
-    echo "Network Interfaces"
-    echo "=========================================="
-    echo ""
+    gum style --foreground 39 --bold --margin "0 0 1 0" "# Network Interfaces"
 
     if command -v ifconfig &> /dev/null; then
         # Get list of interfaces (macOS compatible)
@@ -70,18 +67,15 @@ ping_device() {
     # -W 1: timeout 1 second (macOS compatible)
     # -q: quiet output
     if ping -c 1 -W 1 "$ip" &> /dev/null; then
-        log_green "✓ $name ($ip) - REACHABLE"
+        gum style --foreground 40 "✓ $name ($ip) - REACHABLE"
     else
-        log_red "✗ $name ($ip) - UNREACHABLE"
+        gum style --foreground 203 "✗ $name ($ip) - UNREACHABLE"
     fi
 }
 
 # Function to check homelab devices
 check_devices() {
-    echo "=========================================="
-    echo "Device Status"
-    echo "=========================================="
-    echo ""
+    gum style --foreground 39 --bold --margin "0 0 1 0" "# Device Status"
 
     ping_device "Opnsense Firewall" "192.168.1.1"
     ping_device "Netgear Switch" "192.168.1.10"
@@ -90,9 +84,6 @@ check_devices() {
     ping_device "TrueNas" "192.168.30.108"
     ping_device "Raspberry PI" "192.168.1.13"
     ping_device "Bind9 Secondary LXC" "192.168.1.14"
-
-    echo ""
-    echo "=========================================="
 }
 
 # Function to test DNS resolution
@@ -113,24 +104,21 @@ test_dns() {
     elif command -v nslookup &> /dev/null; then
         result=$(nslookup -timeout=2 "$fqdn" "$dns_server" 2>/dev/null | awk '/^Address: / { print $2 }' | tail -n 1)
     else
-        echo "✗ $fqdn (@$dns_server) - ERROR: No DNS tools available (dig/nslookup)"
+        gum style --foreground 203 "✗ $fqdn (@$dns_server) - ERROR: No DNS tools available (dig/nslookup)"
         return 1
     fi
 
     # Check if resolution was successful
     if [[ -n "$result" && "$result" =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
-        log_green "✓ $fqdn (@$dns_server) - RESOLVED to $result"
+        gum style --foreground 40 "✓ $fqdn (@$dns_server) - RESOLVED to $result"
     else
-        log_red "✗ $fqdn (@$dns_server) - FAILED"
+        gum style --foreground 203 "✗ $fqdn (@$dns_server) - FAILED"
     fi
 }
 
 # Function to check DNS resolution
 check_dns() {
-    echo "=========================================="
-    echo "DNS Resolution Status"
-    echo "=========================================="
-    echo ""
+    gum style --foreground 39 --bold --margin "0 0 1 0" "# DNS Resolution Status"
 
     # Add your DNS tests here
     test_dns "ns1.home.sflab.io" "192.168.1.13"
@@ -138,9 +126,6 @@ check_dns() {
     test_dns "proxmox.home.sflab.io" "192.168.1.13"
     test_dns "adguard.home.sflab.io" "192.168.1.13"
     test_dns "truenas.home.sflab.io" "192.168.30.108"
-
-    echo ""
-    echo "=========================================="
 }
 
 # Main execution
