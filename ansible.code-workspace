@@ -5,20 +5,11 @@
 			"path": "src/ansible/homelab-ansible-playbook"
 		},
 		{
-			"name": "homelab-dns-ansible-playbook",
-			"path": "src/ansible/homelab-dns-ansible-playbook"
+			"name": "ansible-collection-homelab",
+			"path": "src/ansible/ansible-collection-homelab"
 		},
 		{
-			"name": "homelab-pki-ansible-playbook",
-			"path": "src/ansible/homelab-pki-ansible-playbook"
-		},
-		{
-			"name": "ansible-role-adguardhome",
-			"path": "src/ansible/ansible-role-adguardhome"
-		},
-		{
-			"name": "ansible-role-bind9",
-			"path": "src/ansible/ansible-role-bind9"
+			"path": "src/ansible/ansible-collection-homelab-bak"
 		}
 	],
 	"settings": {

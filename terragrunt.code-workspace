@@ -1,17 +1,29 @@
 {
 	"folders": [
 		{
+			"name": "homelab-packer-templates",
+			"path": "src/homelab-packer-templates"
+		},
+		{
 			"name": "terragrunt-infrastructure-catalog-homelab",
-			"path": "src/terragrunt/terragrunt-infrastructure-catalog-homelab"
+			"path": "src/terragrunt-infrastructure-catalog-homelab"
 		},
 		{
 			"name": "terragrunt-infrastructure-live-stacks-homelab",
-			"path": "src/terragrunt/terragrunt-infrastructure-live-stacks-homelab"
+			"path": "src/terragrunt-infrastructure-live-stacks-homelab"
 		},
 		{
-			"name": "examples",
-			"path": "src/terragrunt/examples"
+			"name": "terraform-provider-homelab",
+			"path": "src/terraform-provider-homelab"
+		},
+		{
+			"path": "src/ansible/homelab-ansible-playbook"
+		},
+		{
+			"path": "src/ansible/ansible-collection-homelab"
+		},
+		{
+			"path": "src/homelab-cli"
 		}
-	],
-	"settings": {}
+	]
 }
