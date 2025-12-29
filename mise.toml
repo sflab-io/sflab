@@ -1,5 +1,5 @@
 [tools]
-gum = "latest"
+gum = "0.17.0"
 
 [env]
 PROJECT_ID = "sflab"
@@ -26,11 +26,7 @@ echo "-----------------------------------"
 
 # A problem is that this hook is executed on every `cd` into the sflab directory or its subdirectories (e.g. below ./src).
 # To execute the hook only on first entry into the sflab root directory, the following logic can be used:
-if [ -z "$MISE_ORIGINAL_CWD" ] || [[ "$MISE_ORIGINAL_CWD" != "$PWD"* ]]; then
-  pre-commit install --hook-type pre-commit
-fi
-
-# Link vscode notes from home managed by dotfiles to project docs
-mkdir -p $PROJECT_DOCS/notes/
-ln -fs ~/notes/vscode $PROJECT_DOCS/notes
+# if [ -z "$MISE_ORIGINAL_CWD" ] || [[ "$MISE_ORIGINAL_CWD" != "$PWD"* ]]; then
+#   pre-commit install --hook-type pre-commit
+# fi
 """
