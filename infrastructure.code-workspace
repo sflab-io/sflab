@@ -1,29 +1,43 @@
 {
 	"folders": [
 		{
-			"name": "homelab-packer-templates",
-			"path": "src/homelab-packer-templates"
-		},
-		{
-			"name": "terragrunt-infrastructure-catalog-homelab",
-			"path": "src/terragrunt-infrastructure-catalog-homelab"
-		},
-		{
-			"name": "terragrunt-infrastructure-live-stacks-homelab",
-			"path": "src/terragrunt-infrastructure-live-stacks-homelab"
+			"name": "packer-templates-homelab",
+			"path": "src/packer-templates-homelab"
 		},
 		{
 			"name": "terraform-provider-homelab",
 			"path": "src/terraform-provider-homelab"
 		},
 		{
-			"path": "src/ansible/homelab-ansible-playbook"
+			"name": "terragrunt-catalog-homelab",
+			"path": "src/terragrunt-catalog-homelab"
 		},
 		{
+			"name": "terragrunt-stacks-homelab",
+			"path": "src/terragrunt-stacks-homelab"
+		},
+		{
+			"name": "ansible-playbook-homelab",
+			"path": "src/ansible/ansible-playbook-homelab"
+		},
+		{
+			"name": "ansible-collection-homelab",
 			"path": "src/ansible/ansible-collection-homelab"
 		},
 		{
+			"name": "homelab-cli",
 			"path": "src/homelab-cli"
+		},
+		{
+			"name": "flux-homelab",
+			"path": "src/flux-homelab"
+		},
+		{
+			"name": "flux",
+			"path": "src/flux"
 		}
-	]
+	],
+	"settings": {
+		"ansible.python.interpreterPath": "/opt/homebrew/bin/python3"
+	}
 }
