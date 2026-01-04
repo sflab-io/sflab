@@ -25,16 +25,20 @@
 			"path": "src/ansible/ansible-collection-homelab"
 		},
 		{
-			"name": "homelab-cli",
-			"path": "src/homelab-cli"
+			"name": "d1-flux-homelab",
+			"path": "src/d1-flux-homelab"
 		},
 		{
-			"name": "flux-homelab",
-			"path": "src/flux-homelab"
+			"name": "d1-flux",
+			"path": "src/d1-flux"
 		},
 		{
-			"name": "flux",
-			"path": "src/flux"
+			"name": "d2-flux-homelab",
+			"path": "src/d2-flux-homelab"
+		},
+		{
+			"name": "d2-flux",
+			"path": "src/d2-flux"
 		}
 	],
 	"settings": {
